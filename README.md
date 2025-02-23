@@ -8,38 +8,42 @@ A simple and efficient **Flutter Currency Converter App** that allows users to c
 ✅ Real-time currency conversion using an API  
 ✅ Supports multiple currencies  
 ✅ Simple and user-friendly UI  
-✅ Works on Android & iOS  
+✅ Works on Android & iOS
 
 ## 🛠️ Technologies Used
-- **Flutter** (Dart)  
-- **Provider for state management**  
-- **REST API** for live exchange rates  
+- **Flutter** (Dart)
+- **Provider for state management**
+- **REST API** for live exchange rates
 
-## ⚙️ Setup & Installation  
+## ⚙️ Setup & Installation
 
-### 1️⃣ Clone the Repository  
+### 1️⃣ Clone the Repository
 ```sh
 git clone https://github.com/fardhin/flutter_currency_converter.git
 cd flutter_currency_converter
+```
 
-# 2️⃣ Install Dependencies
+### 2️⃣ Install Dependencies
 ```sh
 flutter pub get
+```
 
-#3️⃣ Run the App
+### 3️⃣ Run the App
+
 ```sh
-flutter run  
+flutter run
+```  
 
-###🔗 API Used
+### 🔗 API Used
 ##This app fetches real-time exchange rates from ExchangeRateAPI (or any API you are using).
 
-###🎯 TODO
-##🚀 Improve UI design
-##💱 Add more currency options
-##📶 Implement offline mode
+### 🎯 TODO
+- **🚀 Improve UI design** 
+- **💱 Add more currency options**
+- **📶 Implement offline mode** 
 
-###📄 License
+### 📄 License
 This project is open-source and available under the MIT License.
 
-###💡 Contribute
+### 💡 Contribute
 Feel free to fork this repo and submit pull requests. Contributions are welcome! 😊
