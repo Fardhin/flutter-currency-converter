@@ -3,8 +3,10 @@ import '../components/currency_dropdown.dart';
 import '../functions/currency_service.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -17,7 +19,7 @@ class _HomeState extends State<Home> {
   double amount = 1.0;
   double convertedAmount = 0.0;
   double anyConvertedAmount = 0.0;
-  List<String> currencies = []; // Dynamic list
+  List<String> currencies = [];
 
   @override
   void initState() {
@@ -57,112 +59,125 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade900,
-        title: const Text('Currency Converter'),
-        centerTitle: true,
-      ),
-      body: currencies.isEmpty
-          ? Center(child: CircularProgressIndicator()) // Show loading until currencies are loaded
-          : Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              'USD to Any Currency',
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            CurrencyDropdown(
-              currencies: currencies,
-              selectedCurrency: targetCurrency,
-              onChanged: (value) {
-                setState(() {
-                  targetCurrency = value!;
-                  fetchRates();
-                });
-              },
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Amount in USD',
-                labelStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  amount = double.tryParse(value) ?? 1.0;
-                  fetchRates();
-                });
-              },
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Converted Amount: $convertedAmount $targetCurrency',
-              style: TextStyle(color: Colors.greenAccent, fontSize: 18),
-            ),
-
-            Divider(color: Colors.white, height: 30),
-
-            Text(
-              'Any Currency to Any Currency',
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black87,
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade900,
+          title: const Text('Currency Converter',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          centerTitle: true,
+        ),
+        body: currencies.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
               children: [
+                const Text(
+                  'USD to Any Currency',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
                 CurrencyDropdown(
                   currencies: currencies,
-                  selectedCurrency: anyBase,
+                  selectedCurrency: targetCurrency,
                   onChanged: (value) {
                     setState(() {
-                      anyBase = value!;
+                      targetCurrency = value!;
                       fetchRates();
                     });
                   },
                 ),
-                Icon(Icons.swap_horiz, color: Colors.white),
-                CurrencyDropdown(
-                  currencies: currencies,
-                  selectedCurrency: anyTarget,
+                TextField(
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Amount in USD',
+                    labelStyle: TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(),
+                  ),
                   onChanged: (value) {
                     setState(() {
-                      anyTarget = value!;
+                      amount = double.tryParse(value) ?? 1.0;
                       fetchRates();
                     });
                   },
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Converted Amount: $convertedAmount $targetCurrency',
+                  style: const TextStyle(
+                      color: Colors.greenAccent, fontSize: 18),
+                ),
+
+                const Divider(color: Colors.white, height: 30),
+
+                const Text(
+                  'Any Currency to Any Currency',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CurrencyDropdown(
+                      currencies: currencies,
+                      selectedCurrency: anyBase,
+                      onChanged: (value) {
+                        setState(() {
+                          anyBase = value!;
+                          fetchRates();
+                        });
+                      },
+                    ),
+                    const Icon(Icons.swap_horiz, color: Colors.white),
+                    CurrencyDropdown(
+                      currencies: currencies,
+                      selectedCurrency: anyTarget,
+                      onChanged: (value) {
+                        setState(() {
+                          anyTarget = value!;
+                          fetchRates();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+
+                TextField(
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Amount',
+                    labelStyle: TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      amount = double.tryParse(value) ?? 1.0;
+                      fetchRates();
+                    });
+                  },
+                ),
+
+                const SizedBox(height: 10),
+                Text(
+                  'Converted Amount: $anyConvertedAmount $anyTarget',
+                  style: const TextStyle(
+                      color: Colors.greenAccent, fontSize: 18),
                 ),
               ],
             ),
-
-            TextField(
-              keyboardType: TextInputType.number,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Amount',
-                labelStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  amount = double.tryParse(value) ?? 1.0;
-                  fetchRates();
-                });
-              },
-            ),
-
-            SizedBox(height: 10),
-            Text(
-              'Converted Amount: $anyConvertedAmount $anyTarget',
-              style: TextStyle(color: Colors.greenAccent, fontSize: 18),
-            ),
-          ],
+          ),
         ),
       ),
     );

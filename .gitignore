@@ -11,22 +11,17 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
-# Flutter/Dart specific
+# Flutter & Dart
 .dart_tool/
-.packages
-build/
-pubspec.lock
 .idea/
-*.iml
-
-# IDE-specific (VS Code, IntelliJ, etc.)
 .vscode/
-*.log
+build/
+ios/Pods/
+pubspec.lock
 
-# macOS
-macos/Pods/
-macos/.symlinks/
-macos/Flutter/ephemeral/
+# IDE files
+*.iml
+.DS_Store
 
 # IntelliJ related
 *.iml
